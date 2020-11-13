@@ -1,5 +1,8 @@
 package com.kakao.webtoon.study.domain;
 
+import com.kakao.webtoon.study.domain.Pet;
+import com.kakao.webtoon.study.domain.event.Events;
+import com.kakao.webtoon.study.domain.event.PetShopBuyedEvent;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +33,7 @@ public class PetShop {
 
         if (this.pets.stream().noneMatch(p -> p.getId().equals(pet.getId()))) {
             this.pets.add(pet);
+            Events.raise(new PetShopBuyedEvent());
         }
     }
 }

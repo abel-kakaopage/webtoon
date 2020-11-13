@@ -1,4 +1,4 @@
-package com.kakao.webtoon.study.domain;
+package com.kakao.webtoon.study.domain.event;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

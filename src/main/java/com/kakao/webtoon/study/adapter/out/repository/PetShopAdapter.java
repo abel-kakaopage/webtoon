@@ -18,27 +18,32 @@ public class PetShopAdapter implements FindPetShopPort, UpdatePetShopPort {
 
     private final PetShopMongoRepository petShopMongoRepository;
 
-    private static PetShop apply(PetShopEntity entity) {
-        return PetShop.builder().id(entity.getId()).name(entity.getName()).build();
+    private static Pet convertPetDomain(PetEntity pet) {
+        return Pet.builder().id(pet.getId()).kind(pet.getKind()).name(pet.getName()).age(pet.getAge()).created(pet.getCreated()).build();
     }
 
-    private static PetEntity apply(Pet pet) {
+    private static PetEntity convertPetEntity(Pet pet) {
         return PetEntity.builder().id(pet.getId()).kind(pet.getKind()).name(pet.getName()).age(pet.getAge()).created(pet.getCreated()).build();
     }
 
-    private static PetShopEntity apply(PetShop petShop) {
-        List<PetEntity> pets = petShop.getPets().stream().map(PetShopAdapter::apply).collect(Collectors.toList());
+    private static PetShop convertPetShopDomain(PetShopEntity entity) {
+        List<Pet> pets = entity.getPets().stream().map(PetShopAdapter::convertPetDomain).collect(Collectors.toList());
+        return PetShop.builder().id(entity.getId()).name(entity.getName()).pets(pets).build();
+    }
+
+    private static PetShopEntity convertPetShopEntity(PetShop petShop) {
+        List<PetEntity> pets = petShop.getPets().stream().map(PetShopAdapter::convertPetEntity).collect(Collectors.toList());
         return PetShopEntity.builder().id(petShop.getId()).name(petShop.getName()).pets(pets).build();
     }
 
     @Override
     public PetShop findPetShop(ObjectId id) {
         Optional<PetShopEntity> petShopEntity = petShopMongoRepository.findById(id);
-        return petShopEntity.map(PetShopAdapter::apply).orElse(null);
+        return petShopEntity.map(PetShopAdapter::convertPetShopDomain).orElse(null);
     }
 
     @Override
     public void updatePetShop(PetShop petshop) {
-        petShopMongoRepository.save(apply(petshop));
+        petShopMongoRepository.save(convertPetShopEntity(petshop));
     }
 }
