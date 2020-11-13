@@ -1,0 +1,3 @@
+GET http://localhost:8080/pet/list?page=1&size=3
+###
+POST http://localhost:8080/pet/buy?petId=5fac0823b694cb3fa6200cfc&shopId=5fac08315f665c20084a44e0
