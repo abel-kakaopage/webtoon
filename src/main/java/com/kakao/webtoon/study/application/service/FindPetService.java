@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class findPetService implements FindPetUseCase {
+public class FindPetService implements FindPetUseCase {
 
     private final FindPetPort findPetPort;
 

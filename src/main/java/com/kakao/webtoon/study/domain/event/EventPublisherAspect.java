@@ -16,7 +16,7 @@ public class EventPublisherAspect  implements ApplicationEventPublisherAware {
     @Around("@annotation(org.springframework.transaction.annotation.Transactional)")
     public Object handleEvent(ProceedingJoinPoint joinPoint) throws Throwable {
         Boolean appliedValue = appliedLocal.get();
-        boolean nested = false;
+        boolean nested;
         if (appliedValue != null && appliedValue) {
             nested = true;
         } else {

@@ -8,10 +8,12 @@ import com.kakao.webtoon.study.application.port.out.UpdatePetShopPort;
 import com.kakao.webtoon.study.domain.Pet;
 import com.kakao.webtoon.study.domain.PetShop;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BuyPetService implements BuyPetUseCase {
@@ -31,6 +33,7 @@ public class BuyPetService implements BuyPetUseCase {
         PetShop petShop = findPetShopPort.findPetShop(petShopId);
         petShop.buyPet(pet);
         updatePetShopPort.updatePetShop(petShop);
+        log.info("펫샵이 업데이트 되었다.");
         return true;
     }
 }

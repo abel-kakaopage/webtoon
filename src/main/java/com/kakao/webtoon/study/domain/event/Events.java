@@ -3,9 +3,12 @@ package com.kakao.webtoon.study.domain.event;
 import org.springframework.context.ApplicationEventPublisher;
 
 public class Events {
+
+    private Events() {}
+
     private static ThreadLocal<ApplicationEventPublisher> publisherLocal = new ThreadLocal<>();
 
-    public static void raise(PetShopBuyedEvent event) {
+    public static void publish(Object event) {
         if (event == null) return;
         if (publisherLocal.get() != null) {
             publisherLocal.get().publishEvent(event);
