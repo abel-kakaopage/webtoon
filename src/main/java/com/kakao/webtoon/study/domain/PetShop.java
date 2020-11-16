@@ -1,6 +1,6 @@
 package com.kakao.webtoon.study.domain;
 
-import com.kakao.webtoon.study.domain.event.Events;
+import com.kakao.webtoon.common.event.Events;
 import com.kakao.webtoon.study.domain.event.PetShopBuyedEvent;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class PetShop {
 
         if (this.pets.stream().noneMatch(p -> p.getId().equals(pet.getId()))) {
             this.pets.add(pet);
-            Events.publish(new PetShopBuyedEvent(this));
+            Events.publish(new PetShopBuyedEvent(this)); // 도메인 로직 실패시 어떻게 될까???
         }
     }
 }
