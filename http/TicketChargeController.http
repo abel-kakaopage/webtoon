@@ -1,0 +1,1 @@
+GET http://localhost:8080/ticket/list?user_id=1&content_id=1
